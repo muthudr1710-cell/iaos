@@ -10,7 +10,7 @@ MANIFEST = {
     "name": "risk_register",
     "title": "Risk Register",
     "description": "Log, score, and track audit risks by likelihood × impact.",
-    "icon": "⚠️",
+    "icon": "alert-triangle",
     "version": "1.0.0",
     "owner": "demo",
 }

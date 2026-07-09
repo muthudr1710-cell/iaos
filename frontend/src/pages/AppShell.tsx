@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { Logo } from "../components/Logo";
+import { Icon } from "../components/Icon";
 import { modulesForRole } from "../modules/registry";
 import "./shell.css";
 
@@ -15,8 +16,10 @@ export default function AppShell() {
   const navigate = useNavigate();
   if (!user) return null;
 
-  const modules = modulesForRole(user.role);
-  const isAdmin = user.role === "super_admin" || user.role === "tenant_admin";
+  const isSuper = user.role === "super_admin";
+  const isAdmin = isSuper || user.role === "tenant_admin";
+  // Super admin has no tenant data, so modules don't apply — stats + user mgmt only.
+  const modules = isSuper ? [] : modulesForRole(user.role);
 
   return (
     <div className="shell">
@@ -25,34 +28,44 @@ export default function AppShell() {
           <Logo size={30} />
         </div>
 
-        <div className="shell-tenant">
-          <span className="shell-tenant-label">
-            {user.role === "super_admin" ? "Platform" : "Workspace"}
+        <div className="shell-context">
+          <span className="shell-context-label">
+            {isSuper ? "Platform" : "Workspace"}
           </span>
           <strong>{tenant?.name ?? "Cap Corporate"}</strong>
         </div>
 
         <nav className="shell-nav">
           <NavLink to="/app" end className="shell-link">
-            <span>🏠</span> Dashboard
+            <Icon name={isSuper ? "trending-up" : "dashboard"} size={19} />
+            {isSuper ? "Overview" : "Dashboard"}
           </NavLink>
 
           {isAdmin && (
             <NavLink to="/app/admin" className="shell-link">
-              <span>⚙️</span>
-              {user.role === "super_admin" ? " Platform Admin" : " Team Admin"}
+              <Icon name="users" size={19} />
+              {isSuper ? "User Management" : "Team & Users"}
             </NavLink>
           )}
 
-          <div className="shell-nav-heading">Modules</div>
-          {modules.length === 0 && (
-            <span className="shell-empty">No modules installed yet</span>
+          {!isSuper && (
+            <>
+              <div className="shell-nav-heading">Modules</div>
+              {modules.length === 0 && (
+                <span className="shell-empty">No modules installed yet</span>
+              )}
+              {modules.map((m) => (
+                <NavLink
+                  key={m.slug}
+                  to={`/app/m/${m.slug}`}
+                  className="shell-link"
+                >
+                  <Icon name={m.icon} size={19} />
+                  {m.title}
+                </NavLink>
+              ))}
+            </>
           )}
-          {modules.map((m) => (
-            <NavLink key={m.slug} to={`/app/m/${m.slug}`} className="shell-link">
-              <span>{m.icon}</span> {m.title}
-            </NavLink>
-          ))}
         </nav>
 
         <div className="shell-user">
@@ -66,12 +79,13 @@ export default function AppShell() {
           <button
             className="shell-logout"
             title="Sign out"
+            aria-label="Sign out"
             onClick={() => {
               logout();
               navigate("/");
             }}
           >
-            ⏻
+            <Icon name="logout" size={18} />
           </button>
         </div>
       </aside>

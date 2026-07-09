@@ -16,7 +16,7 @@ MANIFEST = {
     "name": "_template",
     "title": "Template Module",
     "description": "Reference module — copy me to start yours.",
-    "icon": "📋",
+    "icon": "clipboard",
     "version": "1.0.0",
     "owner": "unassigned",
 }

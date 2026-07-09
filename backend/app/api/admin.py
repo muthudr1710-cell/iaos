@@ -13,6 +13,7 @@ from app.models.user import User, UserRole
 from app.schemas.admin import (
     CreateTenantRequest,
     CreateUserRequest,
+    PlatformStats,
     TenantStats,
     UpdateUserRequest,
 )
@@ -20,6 +21,57 @@ from app.schemas.auth import TenantOut, UserOut
 from fastapi import Depends
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
+
+
+# ─────────────────────────── SUPER ADMIN: stats ─────────────────────────────
+@router.get("/stats", response_model=PlatformStats)
+def platform_stats(db: DbSession, _: User = Depends(require_super_admin)):
+    total_tenants = db.query(func.count(Tenant.id)).scalar() or 0
+    active_tenants = (
+        db.query(func.count(Tenant.id)).filter(Tenant.is_active.is_(True)).scalar()
+        or 0
+    )
+    total_users = db.query(func.count(User.id)).scalar() or 0
+    active_users = (
+        db.query(func.count(User.id)).filter(User.is_active.is_(True)).scalar() or 0
+    )
+    tenant_admins = (
+        db.query(func.count(User.id))
+        .filter(User.role == UserRole.TENANT_ADMIN)
+        .scalar()
+        or 0
+    )
+    auditors = (
+        db.query(func.count(User.id)).filter(User.role == UserRole.AUDITOR).scalar()
+        or 0
+    )
+
+    recent_rows = (
+        db.query(Tenant, func.count(User.id))
+        .outerjoin(User, User.tenant_id == Tenant.id)
+        .group_by(Tenant.id)
+        .order_by(Tenant.id.desc())
+        .limit(5)
+        .all()
+    )
+    recent = [
+        TenantStats(
+            id=t.id, name=t.name, slug=t.slug,
+            is_active=t.is_active, user_count=c,
+        )
+        for t, c in recent_rows
+    ]
+
+    return PlatformStats(
+        total_tenants=total_tenants,
+        active_tenants=active_tenants,
+        suspended_tenants=total_tenants - active_tenants,
+        total_users=total_users,
+        active_users=active_users,
+        tenant_admins=tenant_admins,
+        auditors=auditors,
+        recent_tenants=recent,
+    )
 
 
 # ─────────────────────────── SUPER ADMIN: tenants ───────────────────────────

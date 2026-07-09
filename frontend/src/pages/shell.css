@@ -2,12 +2,12 @@
   display: grid;
   grid-template-columns: 264px 1fr;
   min-height: 100vh;
-  background: var(--mist);
+  background: var(--canvas);
 }
 
 .shell-side {
-  background: var(--navy-deep);
-  color: #fff;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   padding: 22px 16px;
@@ -18,23 +18,29 @@
 .shell-logo {
   padding: 4px 8px 18px;
 }
-.shell-tenant {
-  background: rgba(255, 255, 255, 0.06);
+.shell-context {
+  background: var(--canvas);
+  border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 12px 14px;
+  padding: 11px 14px;
   margin-bottom: 18px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-.shell-tenant-label {
+.shell-context-label {
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gold-soft);
+  letter-spacing: 0.06em;
+  color: var(--gold-strong);
+  font-weight: 600;
 }
-.shell-tenant strong {
+.shell-context strong {
   font-size: 15px;
+  color: var(--navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .shell-nav {
@@ -47,58 +53,68 @@
 .shell-nav-heading {
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.4);
-  margin: 18px 10px 6px;
+  letter-spacing: 0.06em;
+  color: var(--slate-soft);
+  font-weight: 600;
+  margin: 18px 12px 6px;
 }
 .shell-empty {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--slate-soft);
   padding: 4px 12px;
 }
 .shell-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   padding: 10px 12px;
   border-radius: var(--radius-sm);
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 14px;
+  color: var(--slate);
+  font-size: 14.5px;
   font-weight: 500;
-}
-.shell-link span {
-  width: 20px;
-  text-align: center;
+  position: relative;
+  transition: background 0.13s ease, color 0.13s ease;
 }
 .shell-link:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
+  background: var(--canvas);
+  color: var(--navy);
 }
 .shell-link.active {
-  background: var(--gold);
-  color: var(--navy-deep);
+  background: var(--navy-tint);
+  color: var(--navy);
   font-weight: 600;
+}
+.shell-link.active::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--gold);
 }
 
 .shell-user {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 8px 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 8px 4px;
+  border-top: 1px solid var(--line);
   margin-top: 12px;
 }
 .shell-avatar {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--gold);
-  color: var(--navy-deep);
+  background: var(--navy);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 600;
   flex-shrink: 0;
+  font-family: var(--font-head);
 }
 .shell-user-meta {
   display: flex;
@@ -108,21 +124,24 @@
 }
 .shell-user-meta strong {
   font-size: 14px;
+  color: var(--ink);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .shell-user-meta span {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--slate-soft);
 }
 .shell-logout {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 18px;
-  padding: 6px;
+  color: var(--slate-soft);
+  display: inline-flex;
+  padding: 7px;
+  border-radius: 8px;
 }
 .shell-logout:hover {
-  color: #fff;
+  color: var(--danger);
+  background: var(--danger-tint);
 }
 
 .shell-main {
@@ -130,14 +149,12 @@
   overflow-x: hidden;
 }
 
-/* Page header shared by inner pages */
+/* Shared page header */
 .page-head {
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 }
 .page-head h1 {
-  font-size: 26px;
-  color: var(--navy);
-  letter-spacing: -0.01em;
+  font-size: 25px;
 }
 .page-head p {
   color: var(--slate);
@@ -151,17 +168,5 @@
   .shell-side {
     position: static;
     height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-  }
-  .shell-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  .shell-nav-heading {
-    display: none;
   }
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { Logo } from "../components/Logo";
+import { Icon } from "../components/Icon";
 import { ApiError } from "../lib/api";
 import "./auth.css";
 
@@ -30,13 +31,33 @@ export default function Login() {
   return (
     <div className="auth">
       <div className="auth-brandside">
-        <Logo size={40} light />
+        <Logo size={38} />
         <div className="auth-brandcopy">
           <h2>Welcome back to your audit workspace.</h2>
           <p>
             Secure, multi-tenant, and built for the way modern assurance teams
             work.
           </p>
+          <ul className="auth-points">
+            <li>
+              <span className="auth-check">
+                <Icon name="check" size={14} />
+              </span>
+              Isolated workspace per organization
+            </li>
+            <li>
+              <span className="auth-check">
+                <Icon name="check" size={14} />
+              </span>
+              Role-based access and governance
+            </li>
+            <li>
+              <span className="auth-check">
+                <Icon name="check" size={14} />
+              </span>
+              Modular audit disciplines
+            </li>
+          </ul>
         </div>
         <span className="auth-brand-foot">© Cap Corporate</span>
       </div>
@@ -50,28 +71,38 @@ export default function Login() {
 
           <div className="field">
             <label>Work email</label>
-            <input
-              className="input"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@company.com"
-              required
-            />
+            <div className="input-wrap">
+              <span className="input-icon">
+                <Icon name="mail" size={17} />
+              </span>
+              <input
+                className="input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@company.com"
+                required
+              />
+            </div>
           </div>
           <div className="field">
             <label>Password</label>
-            <input
-              className="input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-            />
+            <div className="input-wrap">
+              <span className="input-icon">
+                <Icon name="lock" size={17} />
+              </span>
+              <input
+                className="input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+              />
+            </div>
           </div>
 
-          <button className="btn btn-navy btn-block" disabled={busy}>
+          <button className="btn btn-primary btn-block" disabled={busy}>
             {busy ? "Signing in…" : "Sign in"}
           </button>
 

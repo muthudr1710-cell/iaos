@@ -2,10 +2,13 @@
 """Scaffold a new IAOS module (backend + frontend) in one command.
 
 Usage:
-    python scripts/new_module.py <slug> "<Title>" "<icon>" "<owner>"
+    python scripts/new_module.py <slug> "<Title>" "<icon-name>" "<owner>"
+
+`icon-name` is a name from the shared SVG icon set (frontend/src/components/
+Icon.tsx) — e.g. file-check, shield, briefcase, layers. No emojis.
 
 Example:
-    python scripts/new_module.py control_testing "Control Testing" "✅" "intern-14"
+    python scripts/new_module.py control_testing "Control Testing" "file-check" "intern-14"
 
 This copies the _template folders on BOTH sides and rewrites the identifiers.
 Because module discovery is automatic, that's all you need — no shared file to
@@ -32,7 +35,7 @@ def main():
 
     slug = sys.argv[1].strip().lower()
     title = sys.argv[2]
-    icon = sys.argv[3] if len(sys.argv) > 3 else "🧩"
+    icon = sys.argv[3] if len(sys.argv) > 3 else "layers"
     owner = sys.argv[4] if len(sys.argv) > 4 else "unassigned"
 
     if not re.fullmatch(r"[a-z][a-z0-9_]*", slug):
@@ -49,6 +52,7 @@ def main():
     text = router.read_text()
     text = text.replace('"name": "_template"', f'"name": "{slug}"')
     text = text.replace('"title": "Template Module"', f'"title": "{title}"')
+    text = text.replace('"icon": "clipboard"', f'"icon": "{icon}"')
     text = text.replace('"owner": "unassigned"', f'"owner": "{owner}"')
     text = text.replace("Mounted automatically at /api/modules/_template",
                         f"Mounted automatically at /api/modules/{slug}")
@@ -73,7 +77,7 @@ def main():
                           f'import {pascal(slug)}Page from "./{pascal(slug)}Page"')
     ctext = ctext.replace('slug: "_template"', f'slug: "{slug}"')
     ctext = ctext.replace('title: "Template Module"', f'title: "{title}"')
-    ctext = ctext.replace('icon: "📋"', f'icon: "{icon}"')
+    ctext = ctext.replace('icon: "clipboard"', f'icon: "{icon}"')
     ctext = ctext.replace("component: TemplatePage",
                           f"component: {pascal(slug)}Page")
     cfg.write_text(ctext)

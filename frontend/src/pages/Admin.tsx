@@ -24,13 +24,13 @@ export default function Admin() {
       {isSuper && (
         <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
           <button
-            className={`btn ${tab === "tenants" ? "btn-navy" : "btn-ghost"}`}
+            className={`btn ${tab === "tenants" ? "btn-primary" : "btn-ghost"}`}
             onClick={() => setTab("tenants")}
           >
             Tenants
           </button>
           <button
-            className={`btn ${tab === "users" ? "btn-navy" : "btn-ghost"}`}
+            className={`btn ${tab === "users" ? "btn-primary" : "btn-ghost"}`}
             onClick={() => setTab("users")}
           >
             All Users

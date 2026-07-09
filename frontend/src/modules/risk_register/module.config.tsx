@@ -5,7 +5,7 @@ const config: ModuleConfig = {
   slug: "risk_register",
   title: "Risk Register",
   description: "Log, score, and track audit risks by likelihood × impact.",
-  icon: "⚠️",
+  icon: "alert-triangle",
   component: RiskRegisterPage,
 };
 

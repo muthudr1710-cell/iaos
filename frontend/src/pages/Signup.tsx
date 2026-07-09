@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { Logo } from "../components/Logo";
+import { Icon } from "../components/Icon";
 import { ApiError } from "../lib/api";
 import "./auth.css";
 
@@ -37,13 +38,33 @@ export default function Signup() {
   return (
     <div className="auth">
       <div className="auth-brandside">
-        <Logo size={40} light />
+        <Logo size={38} />
         <div className="auth-brandcopy">
           <h2>Stand up your audit organization in minutes.</h2>
           <p>
             Self-service onboarding. You become the tenant admin and invite your
             team — no IT tickets required.
           </p>
+          <ul className="auth-points">
+            <li>
+              <span className="auth-check">
+                <Icon name="check" size={14} />
+              </span>
+              Your own isolated workspace
+            </li>
+            <li>
+              <span className="auth-check">
+                <Icon name="check" size={14} />
+              </span>
+              Invite and manage your team
+            </li>
+            <li>
+              <span className="auth-check">
+                <Icon name="check" size={14} />
+              </span>
+              Access every audit module
+            </li>
+          </ul>
         </div>
         <span className="auth-brand-foot">© Cap Corporate</span>
       </div>

@@ -10,13 +10,15 @@
  */
 import type { ComponentType } from "react";
 import type { Role } from "../lib/types";
+import type { IconName } from "../components/Icon";
 
 export interface ModuleConfig {
   /** URL-safe id; MUST match the backend module folder name. */
   slug: string;
   title: string;
   description: string;
-  icon: string;
+  /** Icon name from the shared SVG set (see components/Icon.tsx). No emojis. */
+  icon: IconName;
   /** Lazy-loaded page component rendered at /app/m/<slug>. */
   component: ComponentType;
   /** Optional: restrict which roles see this module. */

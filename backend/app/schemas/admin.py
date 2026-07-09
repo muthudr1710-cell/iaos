@@ -32,3 +32,15 @@ class TenantStats(BaseModel):
     user_count: int
 
     model_config = {"from_attributes": True}
+
+
+class PlatformStats(BaseModel):
+    """Headline numbers for the super admin overview."""
+    total_tenants: int
+    active_tenants: int
+    suspended_tenants: int
+    total_users: int
+    active_users: int
+    tenant_admins: int
+    auditors: int
+    recent_tenants: list[TenantStats]

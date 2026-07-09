@@ -10,7 +10,7 @@ const config: ModuleConfig = {
   slug: "_template",
   title: "Template Module",
   description: "Reference module — copy me to build yours.",
-  icon: "📋",
+  icon: "clipboard",
   component: TemplatePage,
   // roles: ["auditor", "tenant_admin"], // optional visibility control
 };

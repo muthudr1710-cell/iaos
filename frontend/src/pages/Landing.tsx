@@ -1,27 +1,28 @@
 import { Link } from "react-router-dom";
 import { Logo } from "../components/Logo";
+import { Icon, type IconName } from "../components/Icon";
 import "./landing.css";
 
-const FEATURES = [
+const FEATURES: { icon: IconName; title: string; body: string }[] = [
   {
-    icon: "🏢",
+    icon: "building",
     title: "Multi-tenant by design",
     body: "Every organization gets an isolated workspace. Data never crosses tenant boundaries — enforced at the query layer.",
   },
   {
-    icon: "🧩",
+    icon: "layers",
     title: "80+ modular workspaces",
     body: "Risk registers, control testing, issue tracking, working papers — each an independent, plug-in module.",
   },
   {
-    icon: "🛡️",
+    icon: "shield",
     title: "Role-based governance",
     body: "Super admins oversee the platform, tenant admins run self-service user management, auditors get to work.",
   },
   {
-    icon: "⚡",
+    icon: "activity",
     title: "Self-service onboarding",
-    body: "Spin up your organization in seconds. No procurement queues, no IT tickets — just sign up and audit.",
+    body: "Stand up your organization in seconds. No procurement queues, no IT tickets — just sign up and audit.",
   },
 ];
 
@@ -35,9 +36,8 @@ const STATS = [
 export default function Landing() {
   return (
     <div className="landing">
-      {/* Nav */}
       <header className="lp-nav">
-        <Logo size={36} light />
+        <Logo size={34} />
         <nav className="lp-nav-links">
           <a href="#features">Platform</a>
           <a href="#why">Why IAOS</a>
@@ -50,12 +50,14 @@ export default function Landing() {
         </nav>
       </header>
 
-      {/* Hero */}
       <section className="lp-hero">
         <div className="lp-hero-inner">
-          <span className="lp-eyebrow">Cap Corporate · Internal Audit OS</span>
+          <span className="lp-eyebrow">
+            <span className="lp-eyebrow-dot" /> Cap Corporate · Internal Audit OS
+          </span>
           <h1>
-            The operating system for <span className="hl">modern internal audit</span>.
+            The operating system for{" "}
+            <span className="hl">modern internal audit</span>.
           </h1>
           <p className="lp-sub">
             IAOS unifies risk, controls, and assurance across every entity you
@@ -63,9 +65,10 @@ export default function Landing() {
           </p>
           <div className="lp-cta">
             <Link to="/signup" className="btn btn-primary btn-lg">
-              Start free →
+              Start free
+              <Icon name="chevron-right" size={18} />
             </Link>
-            <Link to="/login" className="btn btn-ghost btn-lg btn-ghost-light">
+            <Link to="/login" className="btn btn-ghost btn-lg">
               Sign in to your workspace
             </Link>
           </div>
@@ -78,10 +81,8 @@ export default function Landing() {
             ))}
           </div>
         </div>
-        <div className="lp-hero-glow" />
       </section>
 
-      {/* Features */}
       <section className="lp-section" id="features">
         <h2>One platform, every audit discipline</h2>
         <p className="lp-section-sub">
@@ -91,7 +92,9 @@ export default function Landing() {
         <div className="lp-grid">
           {FEATURES.map((f) => (
             <div key={f.title} className="lp-feature card">
-              <div className="lp-feature-icon">{f.icon}</div>
+              <div className="lp-feature-icon">
+                <Icon name={f.icon} size={22} />
+              </div>
               <h3>{f.title}</h3>
               <p>{f.body}</p>
             </div>
@@ -99,7 +102,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Why / CTA band */}
       <section className="lp-band" id="why">
         <div className="lp-band-inner">
           <h2>Assurance you can trust, architecture you can scale.</h2>
@@ -107,15 +109,18 @@ export default function Landing() {
             From a single audit team to an enterprise with dozens of entities,
             IAOS grows with you — every tenant isolated, every module composable.
           </p>
-          <Link to="/signup" className="btn btn-primary btn-lg">
+          <Link to="/signup" className="btn btn-gold btn-lg">
             Create your workspace
+            <Icon name="chevron-right" size={18} />
           </Link>
         </div>
       </section>
 
       <footer className="lp-footer">
-        <Logo size={28} light />
-        <span>© {new Date().getFullYear()} Cap Corporate. All rights reserved.</span>
+        <Logo size={28} />
+        <span>
+          © {new Date().getFullYear()} Cap Corporate. All rights reserved.
+        </span>
       </footer>
     </div>
   );

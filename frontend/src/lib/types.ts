@@ -26,6 +26,17 @@ export interface TenantStats extends Tenant {
   user_count: number;
 }
 
+export interface PlatformStats {
+  total_tenants: number;
+  active_tenants: number;
+  suspended_tenants: number;
+  total_users: number;
+  active_users: number;
+  tenant_admins: number;
+  auditors: number;
+  recent_tenants: TenantStats[];
+}
+
 /** Module manifest returned by GET /api/modules/registry */
 export interface ModuleManifest {
   name: string;
