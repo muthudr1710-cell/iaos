@@ -6,6 +6,7 @@ const config: ModuleConfig = {
   title: "Risk Register",
   description: "Log, score, and track audit risks by likelihood × impact.",
   icon: "alert-triangle",
+  group: "Audit Command Center",
   component: RiskRegisterPage,
 };
 

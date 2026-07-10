@@ -95,6 +95,93 @@
   background: var(--gold);
 }
 
+/* Collapsible module groups */
+.shell-group {
+  display: flex;
+  flex-direction: column;
+}
+.shell-group-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--slate);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  width: 100%;
+  transition: background 0.13s ease, color 0.13s ease;
+}
+.shell-group-head:hover {
+  background: var(--canvas);
+  color: var(--navy);
+}
+.shell-group-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.shell-group-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--slate-soft);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px 7px;
+  min-width: 22px;
+  text-align: center;
+}
+.shell-chevron {
+  color: var(--slate-soft);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+.shell-chevron.is-open {
+  transform: rotate(90deg);
+}
+.shell-group-body {
+  display: flex;
+  flex-direction: column;
+  margin: 2px 0 6px 21px;
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+.shell-sublink {
+  padding: 7px 10px;
+  border-radius: 7px;
+  color: var(--slate);
+  font-size: 13.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.shell-sublink:hover {
+  background: var(--canvas);
+  color: var(--navy);
+}
+.shell-sublink.active {
+  color: var(--navy);
+  font-weight: 600;
+  background: var(--navy-tint);
+}
+.shell-ind {
+  display: flex;
+  flex-direction: column;
+}
+.shell-ind-head {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold-strong);
+  font-weight: 700;
+  padding: 8px 10px 3px;
+}
+
 .shell-user {
   display: flex;
   align-items: center;

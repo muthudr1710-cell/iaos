@@ -11,6 +11,8 @@ const config: ModuleConfig = {
   title: "Template Module",
   description: "Reference module — copy me to build yours.",
   icon: "clipboard",
+  group: "Other", // navigation group (see GROUPS in registry.ts)
+  // industry: "BFSI", // only for Industry Packs modules
   component: TemplatePage,
   // roles: ["auditor", "tenant_admin"], // optional visibility control
 };

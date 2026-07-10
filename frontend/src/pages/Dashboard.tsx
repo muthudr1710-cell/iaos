@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { get } from "../lib/api";
 import type { PlatformStats } from "../lib/types";
-import { modulesForRole } from "../modules/registry";
+import { groupModules, modulesForRole } from "../modules/registry";
 import { Icon, type IconName } from "../components/Icon";
 import "./dashboard.css";
 
@@ -14,34 +14,46 @@ export default function Dashboard() {
   if (user.role === "super_admin") return <PlatformOverview name={user.full_name} />;
 
   const modules = modulesForRole(user.role);
+  const groups = groupModules(modules);
   return (
     <div>
       <div className="page-head">
         <h1>Welcome, {user.full_name.split(" ")[0]}.</h1>
-        <p>Your {tenant?.name ?? "organization"} audit workspace.</p>
+        <p>
+          Your {tenant?.name ?? "organization"} audit workspace ·{" "}
+          {modules.length} modules across {groups.length} suites.
+        </p>
       </div>
 
-      <div className="tile-grid">
-        {modules.length === 0 && (
-          <div className="card empty-card">
-            <h3>No modules yet</h3>
-            <p>
-              Modules appear here as interns ship them. Copy the template to
-              build one.
-            </p>
-          </div>
-        )}
-        {modules.map((m) => (
-          <Link key={m.slug} to={`/app/m/${m.slug}`} className="card tile">
-            <div className="tile-icon">
-              <Icon name={m.icon} size={22} />
+      {modules.length === 0 && (
+        <div className="card empty-card">
+          <h3>No modules yet</h3>
+          <p>Modules appear here as they are shipped.</p>
+        </div>
+      )}
+
+      <div className="group-sections">
+        {groups.map((g) => (
+          <section key={g.name} className="card group-card">
+            <div className="group-card-head">
+              <span className="group-card-icon">
+                <Icon name={g.icon} size={19} />
+              </span>
+              <h3>{g.name}</h3>
+              <span className="group-card-count">{g.modules.length}</span>
             </div>
-            <h3>{m.title}</h3>
-            <p>{m.description}</p>
-            <span className="tile-open">
-              Open <Icon name="chevron-right" size={15} />
-            </span>
-          </Link>
+            <div className="group-card-links">
+              {g.modules.map((m) => (
+                <Link
+                  key={m.slug}
+                  to={`/app/m/${m.slug}`}
+                  className="module-chip"
+                >
+                  {m.title}
+                </Link>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
     </div>

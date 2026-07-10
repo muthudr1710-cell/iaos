@@ -21,7 +21,13 @@ export type IconName =
   | "trending-up"
   | "user-check"
   | "briefcase"
-  | "file-check";
+  | "file-check"
+  | "wallet"
+  | "cart"
+  | "truck"
+  | "scale"
+  | "server"
+  | "grid";
 
 const PATHS: Record<IconName, JSX.Element> = {
   dashboard: (
@@ -125,6 +131,51 @@ const PATHS: Record<IconName, JSX.Element> = {
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <path d="M14 2v6h6" />
       <path d="m9 15 2 2 4-4" />
+    </>
+  ),
+  wallet: (
+    <>
+      <path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2" />
+      <path d="M3 7h16a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H3" />
+      <path d="M16 12h.01" />
+    </>
+  ),
+  cart: (
+    <>
+      <circle cx="8" cy="21" r="1" />
+      <circle cx="19" cy="21" r="1" />
+      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+    </>
+  ),
+  truck: (
+    <>
+      <path d="M14 18V6a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h1" />
+      <path d="M14 9h4l3 3v5a1 1 0 0 1-1 1h-1" />
+      <circle cx="7" cy="18" r="2" />
+      <circle cx="17" cy="18" r="2" />
+    </>
+  ),
+  scale: (
+    <>
+      <path d="M12 3v18" />
+      <path d="M6 21h12" />
+      <path d="m3 8 3-5 3 5a3 3 0 0 1-6 0z" />
+      <path d="m15 8 3-5 3 5a3 3 0 0 1-6 0z" />
+    </>
+  ),
+  server: (
+    <>
+      <rect x="2" y="3" width="20" height="8" rx="2" />
+      <rect x="2" y="13" width="20" height="8" rx="2" />
+      <path d="M6 7h.01M6 17h.01" />
+    </>
+  ),
+  grid: (
+    <>
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
     </>
   ),
 };
